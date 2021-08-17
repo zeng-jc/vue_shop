@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2745679 */
+  src: url('iconfont.woff2?t=1629008064310') format('woff2'),
+       url('iconfont.woff?t=1629008064310') format('woff'),
+       url('iconfont.ttf?t=1629008064310') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-zhanghao:before {
+  content: "\e649";
+}
+
+.icon-mima:before {
+  content: "\e64b";
+}
+
