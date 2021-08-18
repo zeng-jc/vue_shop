@@ -64,35 +64,42 @@ export default {
           { min: 6, max: 16, message: '密码格式错误', trigger: 'blur' },
         ],
       },
+      //表单对象
+      loginRef: null,
     }
   },
   methods: {
     resetForm() {
-      this.$refs.loginFormRef.resetFields()
+      this.loginRef.resetFields()
     },
     login() {
-      //登录前需要对整个表单进行校验检查，需要使用 validate(Boolean,Object)
-      this.$refs.loginFormRef.validate(async boo => {
+      //登录前需要对整个表单规则进行校验检查，需要使用 validate(Boolean,Object)
+      this.loginRef.validate(async boo => {
         if (!boo) return
-        const { data } = await this.$http({
+        const { data: result } = await this.$http({
           method: 'POST',
           url: 'login',
           params: this.loginForm,
         })
-        if (data.meta.status !== 200) {
-          this.$message.error('登录失败，账号或密码错误')
+        if (result.meta.status !== 200) {
+          this.$message.error('登录失败')
         } else {
           this.$message.success('登录成功')
           /**1.将token保存到 sessionStorage 中
            *  - token 只在当前网站打开期间生效，所以将 token 保存在 sessionStorage中
            *  - 项目中除了登录页面，其他页面只能在登陆后访问（通过导航守卫控制）
            */
-          sessionStorage.setItem('token', data.data.token)
+          sessionStorage.setItem('token', result.data.token)
           //2.跳转到主页
           this.$router.push('/home')
         }
       })
     },
+  },
+  //当前组件实例被挂载后调用
+  mounted() {
+    //挂载后我们就能获取 dom 元素
+    this.loginRef = this.$refs.loginFormRef
   },
 }
 </script>
