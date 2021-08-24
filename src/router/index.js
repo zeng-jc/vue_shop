@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 
 const Login = () => import('components/login/Login.vue')
 const Home = () => import('components/home/Home.vue')
+const Welcome = () => import('components/home/homeChild/Welcome.vue')
+const Users = () => import('components/home/users/Users.vue')
+const Roles = () => import('components/home/roles/Roles.vue')
+const Rights = () => import('components/home/rights/Rights.vue')
 
 Vue.use(VueRouter)
 
@@ -17,7 +21,26 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    redirect: '/Welcome',
+    children: [
+      {
+        path: '/welcome',
+        component: Welcome
+      },
+      {
+        path: '/users',
+        component: Users
+      },
+      {
+        path: '/roles',
+        component: Roles
+      },
+      {
+        path: '/rights',
+        component: Rights
+      }
+    ]
   }
 ]
 
@@ -28,7 +51,7 @@ const router = new VueRouter({
 })
 
 //设置导航守卫
-router.beforeEach((to, form, next) => {
+router.beforeEach((to, from, next) => {
   /**
    * to：即将要进入的目标路由
    * form：即将要离开的目标路由

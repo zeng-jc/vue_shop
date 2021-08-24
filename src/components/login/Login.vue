@@ -14,9 +14,9 @@
         <el-form-item prop="username">
           <el-input
             v-model="loginForm.username"
-            placeholder="请输入内容"
+            placeholder="请输入账号"
             clearable
-            prefix-icon="iconfont icon-zhanghao"
+            prefix-icon="iconfont icon-user"
             @keyup.enter.native="login"
           >
           </el-input>
@@ -26,9 +26,9 @@
           <el-input
             type="password"
             v-model="loginForm.password"
-            placeholder="请输入内容"
+            placeholder="请输入密码"
             clearable
-            prefix-icon="iconfont icon-mima"
+            prefix-icon="iconfont icon-3702mima"
             @keyup.enter.native="login"
           >
           </el-input>
@@ -57,7 +57,7 @@ export default {
       loginRules: {
         username: [
           { required: true, message: '请输入账号', trigger: 'blur' },
-          { min: 4, max: 16, message: '账号格式错误', trigger: 'blur' },
+          { min: 3, max: 16, message: '账号格式错误', trigger: 'blur' },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -76,11 +76,13 @@ export default {
       //登录前需要对整个表单规则进行校验检查，需要使用 validate(Boolean,Object)
       this.loginRef.validate(async boo => {
         if (!boo) return
+        //注意！！这里虽然是post请求，但携带的是查询字符串参数！！
         const { data: result } = await this.$http({
           method: 'POST',
           url: 'login',
           params: this.loginForm,
         })
+
         if (result.meta.status !== 200) {
           this.$message.error('登录失败')
         } else {
@@ -90,8 +92,11 @@ export default {
            *  - 项目中除了登录页面，其他页面只能在登陆后访问（通过导航守卫控制）
            */
           sessionStorage.setItem('token', result.data.token)
-          //2.跳转到主页
-          this.$router.push('/home')
+          //2.跳转到主页，编程式
+          this.$router.push({
+            path: '/home',
+            query: { username: this.loginForm.username },
+          })
         }
       })
     },
