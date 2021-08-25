@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       // 用户名
-      username: this.$route.query.username,
+      username: sessionStorage.getItem('username'),
       // 左侧菜单列表
       menus: null,
       // 菜单图标

@@ -92,11 +92,12 @@ export default {
            *  - 项目中除了登录页面，其他页面只能在登陆后访问（通过导航守卫控制）
            */
           sessionStorage.setItem('token', result.data.token)
-          //2.跳转到主页，编程式
-          this.$router.push({
-            path: '/home',
-            query: { username: this.loginForm.username },
-          })
+
+          //2.登录携带用户名
+          sessionStorage.setItem('username', result.data.username)
+
+          //3.跳转到主页，编程式
+          this.$router.push('/home')
         }
       })
     },

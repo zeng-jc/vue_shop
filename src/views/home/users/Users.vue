@@ -101,7 +101,7 @@
     </el-card>
 
     <!-- 对话框 -->
-    <user-dialog ref="userDialog" />
+    <user-dialog ref="userDialog" @getUsers="getUsers" />
   </div>
 </template>
 

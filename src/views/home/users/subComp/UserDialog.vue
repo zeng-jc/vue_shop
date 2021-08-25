@@ -47,8 +47,6 @@ const validMobile = (rule, value, callback) => {
   }
 }
 
-import axios from 'axios'
-
 export default {
   name: 'Dialog',
   data() {
@@ -99,14 +97,15 @@ export default {
           data: this.addUserForm,
         })
 
-        console.log(result)
-
         if (result.meta.status !== 201) {
           return this.$message.error('添加用户失败')
         }
 
         this.$message.success('添加用户成功')
         this.dialogVisible = false
+
+        //通知父组件调用获取用户列表的方法
+        this.$emit('getUsers')
       })
     },
   },
