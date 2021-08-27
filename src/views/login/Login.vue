@@ -97,7 +97,7 @@ export default {
           sessionStorage.setItem('username', result.data.username)
 
           //3.跳转到主页，编程式
-          this.$router.push('/home')
+          this.$router.push('/welcome')
         }
       })
     },

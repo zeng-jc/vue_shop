@@ -4,12 +4,10 @@ const API = {
   menus: '/menus',
   //用户接口
   users: '/users',
+  //“修改”与“删除”用户接口
+  usersEdit: '/users/:id',
   //动态接口
-  userState: '/users/:id/state/:type',
-  roles: '/roles',
-  users_find: '/users/find',
-  users_update: '/users/update',
-  users_delete: '/users/delete'
+  userState: '/users/:id/state/:type'
 }
 
 export default API
