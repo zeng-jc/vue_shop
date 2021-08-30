@@ -1,7 +1,8 @@
 <template>
   <section>
     <!-- 面包屑导航 -->
-    <roles-breadcrumb />
+    <breadcrumb :breadcrumbItem="['权限管理', '角色列表']" />
+
     <el-card>
       <!-- 添加用户 -->
       <add-roles @getRolesList="getRolesList" />
@@ -16,8 +17,11 @@
 </template>
 
 <script>
-// 面包屑导航
-import RolesBreadcrumb from './subComp/RolesBreadcrumb'
+/**
+ * 公共组件
+ */
+import Breadcrumb from 'components/content/Breadcrumb.vue'
+
 // 添加角色
 import AddRoles from './subComp/AddRoles'
 // 角色列表
@@ -60,7 +64,7 @@ export default {
     },
   },
   components: {
-    RolesBreadcrumb,
+    Breadcrumb,
     AddRoles,
     RolesList,
   },

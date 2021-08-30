@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 面包屑导航 -->
-    <user-breadcrumb />
+    <breadcrumb :breadcrumbItem="['用户管理', '用户列表']" />
 
     <!-- 卡片区域 -->
     <el-card>
@@ -27,8 +27,11 @@
 </template>
 
 <script>
-//面包屑导航组件
-import UserBreadcrumb from './subComp/UserBreadcrumb'
+/**
+ * 公共组件
+ */
+import Breadcrumb from 'components/content/Breadcrumb.vue'
+
 //搜索、添加用户组件
 import UserSearchAdd from './subComp/UserSearchAdd'
 //用户列表组件
@@ -91,8 +94,7 @@ export default {
     },
   },
   components: {
-    //面包屑导航组件
-    UserBreadcrumb,
+    Breadcrumb,
     //搜索、添加用户组件
     UserSearchAdd,
     //用户列表组件

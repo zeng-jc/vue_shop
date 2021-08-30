@@ -1,7 +1,8 @@
 <template>
   <section>
     <!-- 面包屑导航 -->
-    <rights-breadcrumb />
+    <breadcrumb :breadcrumbItem="['权限管理', '权限列表']" />
+
     <el-card>
       <!-- 权限列表 -->
       <rights-list :rightsList="rightsList" />
@@ -10,8 +11,11 @@
 </template>
 
 <script>
-// 面包屑导航
-import RightsBreadcrumb from './subComp/RightsBreadcrumb'
+/**
+ * 公共组件
+ */
+import Breadcrumb from 'components/content/Breadcrumb.vue'
+
 // 权限列表
 import RightsList from './subComp/RightsList'
 
@@ -38,8 +42,7 @@ export default {
     },
   },
   components: {
-    // 面包屑导航
-    RightsBreadcrumb,
+    Breadcrumb,
     // 权限列表
     RightsList,
   },
