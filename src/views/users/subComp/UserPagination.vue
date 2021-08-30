@@ -3,7 +3,7 @@
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
     :current-page="pagenum"
-    :page-sizes="[1, 2, 5, 8]"
+    :page-sizes="[2, 4, 8, 12]"
     :page-size="pagesize"
     layout="total, sizes, prev, pager, next, jumper"
     :total="total"
@@ -24,7 +24,7 @@ export default {
     pagesize: {
       type: Number,
       default() {
-        return 5
+        return 8
       },
     },
     total: {

@@ -55,18 +55,19 @@
               type="warning"
               icon="el-icon-setting"
               size="small "
+              @click="showAllotDialog(editSlot.row)"
             ></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
 
-    <!-- 对话框 -->
+    <!-- 编辑用户对话框 -->
     <el-dialog
       title="修改用户"
-      :visible.sync="dialogVisible"
+      :visible.sync="EditDialogVisible"
       width="40%"
-      @close="cleanForm"
+      @close="$refs.userFormRef.resetFields()"
       :close-on-click-modal="false"
     >
       <!-- 表单区域 -->
@@ -93,30 +94,56 @@
 
         <!-- 按钮区域 -->
         <el-row type="flex" justify="end">
-          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button @click="EditDialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="editUser"> 确 定 </el-button>
         </el-row>
       </el-form>
+    </el-dialog>
+
+    <!-- 分配角色对话框 -->
+    <el-dialog
+      title="分配角色"
+      :visible.sync="allotDialogVisible"
+      width="40%"
+      :close-on-click-modal="false"
+      @close="selectRole = ''"
+    >
+      <p class="userInfoP">当前用户：{{ userInfo.username }}</p>
+      <p class="userInfoP">当前角色：{{ userInfo.role_name }}</p>
+      <p class="userInfoP">
+        分配角色：
+        <el-select v-model="selectRole" placeholder="请选择">
+          <el-option
+            v-for="item in roles"
+            :key="item.id"
+            :label="item.roleName"
+            :value="item.id"
+          >
+          </el-option>
+        </el-select>
+      </p>
+
+      <!-- 按钮区域 -->
+      <el-row type="flex" justify="end">
+        <el-button @click="allotDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="allotRoleBtn"> 确 定 </el-button>
+      </el-row>
     </el-dialog>
   </section>
 </template>
 
 <script>
-const validMobile = (rule, value, callback) => {
-  if (!value) {
-    callback(new Error('请输入电话号码'))
-  } else if (value.toString().length <= 8) {
-    callback(new Error('请输入正确位数手机号码'))
-  } else {
-    callback()
-  }
-}
-
 export default {
-  name: 'UserTable',
+  name: 'UserList',
   props: {
     // 所有用户数据
     users: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    roles: {
       type: Array,
       default() {
         return []
@@ -127,7 +154,7 @@ export default {
     return {
       //当前用户ID
       curUserId: '',
-      dialogVisible: false,
+      EditDialogVisible: false,
       //表单数据对象
       editUserForm: {
         username: '',
@@ -145,21 +172,25 @@ export default {
           { required: true, message: '请输入邮箱', trigger: 'blur' },
           { type: 'email', message: '邮箱格式错误', trigger: 'blur' },
         ],
-        mobile: [
-          { required: true, message: '请输入电话', trigger: 'blur' },
-          { validator: validMobile, trigger: 'blur' },
-        ],
+        mobile: [{ required: true, message: '请输入电话', trigger: 'blur' }],
       },
+
+      /**
+       * 分配角色
+       */
+      allotDialogVisible: false,
+      userInfo: {
+        username: '',
+        role_name: '',
+      },
+      // 当前选择的角色(保存的是角色id)
+      selectRole: '',
     }
   },
   methods: {
-    // 关闭对话框时调用，关闭时清空表单
-    cleanForm() {
-      this.$refs.userFormRef.resetFields()
-    },
     // 显示对话框（同时拿到当前用户信息）
     showDialog(curUser) {
-      this.dialogVisible = true
+      this.EditDialogVisible = true
       // 拿到当前修改的用户 id
       this.curUserId = curUser.id
       // 当前点击的用户信息赋给对话框中的表单
@@ -189,7 +220,7 @@ export default {
         }
 
         // 关闭对话框
-        this.dialogVisible = false
+        this.EditDialogVisible = false
         // 刷新用户列表
         this.$emit('getUsers')
         // 提示用户修改成功
@@ -254,9 +285,47 @@ export default {
       this.$emit('getUsers')
       this.$message.success('删除成功!')
     },
+
+    // 显示分配对话框
+    showAllotDialog(info) {
+      this.userInfo.username = info.username
+      this.userInfo.role_name = info.role_name
+      this.curUserId = info.id
+      this.allotDialogVisible = true
+    },
+
+    // 分配用户角色
+    async allotRoleBtn() {
+      const { data: result } = await this.$http({
+        method: 'put',
+        url: {
+          name: 'userAllotRole',
+          params: {
+            id: this.curUserId,
+          },
+        },
+        data: {
+          rid: this.selectRole,
+        },
+      })
+      console.log(result.data)
+      if (result.meta.status !== 200) {
+        return this.$message.error('用户角色分配失败')
+      }
+
+      // 关闭对话框
+      this.allotDialogVisible = false
+      // 刷新用户列表
+      this.$emit('getUsers')
+      // 提示用户修改成功
+      this.$message.success('用户角色分配成功')
+    },
   },
 }
 </script>
 
 <style lang="less" scoped>
+.userInfoP {
+  margin-bottom: 15px;
+}
 </style>

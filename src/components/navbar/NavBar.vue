@@ -43,13 +43,13 @@ export default {
   color: #fff;
 
   > #logo {
+    display: flex;
+    align-items: center;
     img {
       width: 28px;
-      vertical-align: middle;
     }
     span {
       margin-left: 15px;
-      font-size: 16px;
     }
   }
 
@@ -57,8 +57,5 @@ export default {
     margin-right: 15px;
     color: #ffca84;
   }
-}
-.el-container {
-  height: 100%;
 }
 </style>

@@ -9,10 +9,10 @@
       background-color="#333744"
       text-color="#fff"
       active-text-color="#409eff"
-      unique-opened
       :collapse="isCollapse"
       :collapse-transition="false"
       router
+      unique-opened
       :default-active="activePath"
     >
       <!-- 一级菜单 -->
@@ -100,7 +100,6 @@ export default {
 // 侧边栏样式 --------------------------------
 .el-aside {
   background-color: #333744;
-  text-align: center;
   user-select: none; //双击不会选中文字
   .toggleBtn {
     background-color: #4a5064;
@@ -109,6 +108,7 @@ export default {
     letter-spacing: 0.2em;
     overflow: hidden;
     p {
+      text-align: center;
       line-height: 20px;
       height: 24px;
       margin: 5px;

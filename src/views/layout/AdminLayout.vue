@@ -1,10 +1,11 @@
 <template>
-  <el-container>
+  <el-container class="layout-container">
     <!-- 头部 -->
     <el-header><nav-bar></nav-bar></el-header>
     <el-container>
       <!-- 菜单 -->
       <aside-menus></aside-menus>
+      <!-- 右侧内容主体 -->
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -27,10 +28,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-container {
+.layout-container {
   height: 100%;
-  .el-header {
-    background-color: #373d41;
-  }
+}
+
+.el-header {
+  background-color: #373d41;
 }
 </style>

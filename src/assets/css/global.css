@@ -8,3 +8,19 @@ body,
   margin: 0;
   padding: 0;
 }
+
+.el-breadcrumb {
+  margin-bottom: 15px;
+}
+
+/*
+ * 只让main区域滚动
+ */
+.el-main {
+  position: absolute;
+  left: 200px;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  overflow-y: scroll;
+}

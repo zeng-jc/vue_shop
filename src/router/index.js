@@ -5,8 +5,8 @@ const Login = () => import('views/login/Login.vue')
 const AdminLayout = () => import('views/layout/AdminLayout.vue')
 const Welcome = () => import('components/welcome/Welcome.vue')
 const Users = () => import('views/users/Users.vue')
-const Roles = () => import('views/roles/Roles.vue')
-const Rights = () => import('views/rights/Rights.vue')
+const Roles = () => import('views/power/roles/Roles.vue')
+const Rights = () => import('views/power/rights/Rights.vue')
 
 Vue.use(VueRouter)
 

@@ -12,7 +12,7 @@
       />
 
       <!-- 用户列表区域 -->
-      <user-table :users="users" @getUsers="getUsers" />
+      <user-list :users="users" :roles="roles" @getUsers="getUsers" />
 
       <!-- 分页 -->
       <user-pagination
@@ -32,7 +32,7 @@ import UserBreadcrumb from './subComp/UserBreadcrumb'
 //搜索、添加用户组件
 import UserSearchAdd from './subComp/UserSearchAdd'
 //用户列表组件
-import UserTable from './subComp/UserTable'
+import UserList from './subComp/UserList'
 //分页组件
 import UserPagination from './subComp/UserPagination'
 
@@ -49,15 +49,19 @@ export default {
         //请求的当前页
         pagenum: 1,
         //当前页面显示的数据长度
-        pagesize: 5,
+        pagesize: 8,
       },
       //一共多少条数据
       total: 0,
+
+      //角色列表
+      roles: [],
     }
   },
   created() {
-    this.userParams.pagesize = +sessionStorage.getItem('pageSize') || 5
+    this.userParams.pagesize = +sessionStorage.getItem('pageSize') || 8
     this.getUsers()
+    this.getRoles()
   },
   methods: {
     //获取用户
@@ -67,8 +71,23 @@ export default {
         params: this.userParams,
       })
 
+      if (result.meta.status !== 200) {
+        return this.$message.error('用户列表数据获取失败')
+      }
+
       this.users = result.data.users
       this.total = result.data.total
+    },
+    //获取角色列表
+    async getRoles() {
+      const { data: result } = await this.$http({
+        url: 'roles',
+      })
+
+      if (result.meta.status !== 200) {
+        return this.$message.error('用户列表数据获取失败')
+      }
+      this.roles = result.data
     },
   },
   components: {
@@ -77,7 +96,7 @@ export default {
     //搜索、添加用户组件
     UserSearchAdd,
     //用户列表组件
-    UserTable,
+    UserList,
     //分页组件
     UserPagination,
   },
