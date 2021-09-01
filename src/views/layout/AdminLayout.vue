@@ -7,7 +7,9 @@
       <aside-menus></aside-menus>
       <!-- 右侧内容主体 -->
       <el-main>
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </el-main>
     </el-container>
   </el-container>

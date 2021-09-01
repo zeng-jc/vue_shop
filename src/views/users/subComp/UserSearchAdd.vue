@@ -49,13 +49,12 @@
         <el-form-item label="电话" prop="mobile">
           <el-input v-model.number="addUserForm.mobile"></el-input>
         </el-form-item>
-
-        <!-- 按钮区域 -->
-        <el-row type="flex" justify="end">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="addUser"> 确 定 </el-button>
-        </el-row>
       </el-form>
+      <!-- 按钮区域 -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addUser"> 确 定 </el-button>
+      </span>
     </el-dialog>
   </el-row>
 </template>

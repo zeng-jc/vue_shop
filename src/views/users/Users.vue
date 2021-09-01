@@ -15,12 +15,12 @@
       <user-list :users="users" :roles="roles" @getUsers="getUsers" />
 
       <!-- 分页 -->
-      <user-pagination
-        @getUsers="getUsers"
+      <pagination
         :pagenum.sync="userParams.pagenum"
-        @update:pagesize="pagesize = $event"
         :pagesize.sync="userParams.pagesize"
         :total="total"
+        @getDate="getUsers"
+        :pageSizeName="UserPageSize"
       />
     </el-card>
   </div>
@@ -31,13 +31,12 @@
  * 公共组件
  */
 import Breadcrumb from 'components/content/Breadcrumb.vue'
+import Pagination from 'components/content/Pagination'
 
 //搜索、添加用户组件
 import UserSearchAdd from './subComp/UserSearchAdd'
 //用户列表组件
 import UserList from './subComp/UserList'
-//分页组件
-import UserPagination from './subComp/UserPagination'
 
 export default {
   name: 'Users',
@@ -52,17 +51,20 @@ export default {
         //请求的当前页
         pagenum: 1,
         //当前页面显示的数据长度
-        pagesize: 8,
+        pagesize: 4,
       },
       //一共多少条数据
       total: 0,
 
       //角色列表
       roles: [],
+
+      // 用户 pageSize
+      UserPageSize: 'UserPageSize',
     }
   },
   created() {
-    this.userParams.pagesize = +sessionStorage.getItem('pageSize') || 8
+    this.userParams.pagesize = +sessionStorage.getItem(this.UserPageSize) || 4
     this.getUsers()
     this.getRoles()
   },
@@ -94,13 +96,16 @@ export default {
     },
   },
   components: {
+    /**
+     * 公共组件
+     */
     Breadcrumb,
+    Pagination,
+
     //搜索、添加用户组件
     UserSearchAdd,
     //用户列表组件
     UserList,
-    //分页组件
-    UserPagination,
   },
 }
 </script>

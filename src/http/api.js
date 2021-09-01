@@ -6,6 +6,7 @@ const API = {
   /**
    * users
    */
+  // 获取用户数据列表，添加用户
   users: '/users',
   // “修改”与“删除”用户接口
   usersEdit: '/users/:id',
@@ -28,7 +29,15 @@ const API = {
   // 删除角色指定权限
   deleteRolesRights: 'roles/:roleId/rights/:rightId',
   // 角色授权
-  addRights: 'roles/:roleId/rights'
+  addRights: 'roles/:roleId/rights',
+
+  /**
+   * product
+   */
+  // 分类数据列表，添加分类也是此接口（不同的是post请求）
+  categories: 'categories',
+  // 编辑删除操作
+  categoriesID: 'categories/:id'
 }
 
 export default API

@@ -24,3 +24,8 @@ body,
   bottom: 0;
   overflow-y: scroll;
 }
+
+/* 设置级联选择器的高度 */
+.el-cascader-menu {
+  height: 300px;
+}

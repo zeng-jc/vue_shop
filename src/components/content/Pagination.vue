@@ -13,35 +13,32 @@
 
 <script>
 export default {
-  name: 'UserPagination',
+  name: 'CategoryPagination',
   props: {
     pagenum: {
       type: Number,
-      default() {
-        return 1
-      },
     },
     pagesize: {
       type: Number,
-      default() {
-        return 8
-      },
     },
     total: {
       type: Number,
+    },
+    pageSizeName: {
+      type: String,
     },
   },
   methods: {
     //监听每页面的数据条数（切换每页显示条数的菜单就会触发）
     handleSizeChange(pageSize) {
       this.$emit('update:pagesize', pageSize)
-      sessionStorage.setItem('pageSize', pageSize)
-      this.$emit('getUsers')
+      sessionStorage.setItem(this.pageSizeName, pageSize)
+      this.$emit('getDate')
     },
     //监听页码值（当页码值发生改变就会触发）
     handleCurrentChange(currentPage) {
       this.$emit('update:pagenum', currentPage)
-      this.$emit('getUsers')
+      this.$emit('getDate')
     },
   },
 }

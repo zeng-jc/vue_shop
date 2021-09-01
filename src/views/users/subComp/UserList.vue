@@ -308,7 +308,6 @@ export default {
           rid: this.selectRole,
         },
       })
-      console.log(result.data)
       if (result.meta.status !== 200) {
         return this.$message.error('用户角色分配失败')
       }
