@@ -1,4 +1,5 @@
 <template>
+  <!-- this.$refs.cascaderRef.checkedValue = [] 对于级连选择器最好不要这样直接修改 -->
   <div>
     <el-button type="primary" @click="showAddCateDialog">添加分类</el-button>
     <el-dialog
@@ -23,6 +24,7 @@
           所以没有使用 v-model 保存 
           -->
           <el-cascader
+            v-model="cascaderVal"
             ref="cascaderRef"
             :options="parentOptions"
             :props="{
@@ -72,6 +74,8 @@ export default {
         // 父类层级，0默认一级分类
         cat_level: 0,
       },
+      //级连选择器选中的所有value
+      cascaderVal: [],
     }
   },
   methods: {
@@ -91,18 +95,17 @@ export default {
       this.parentOptions = result.data
     },
 
-    // 级连选择器发生改变触发的方法
+    // 级连选择器发生改变触发的方法，可以直接拿到选择的value
     handleChange(value) {
-      //如果没有选择那么长度为0，添加的是一级分类
-      if (value.length === 0) {
-        this.addCateParams.cat_level = 0
-        this.addCateParams.cat_pid = 0
-      } else {
+      // 如果没有选择那么长度为0，添加的是一级分类
+      // 如果长度大于0那么选择了他的父级
+      if (value.length > 0) {
         // 如果选择了，需要拿到父类 id
         this.addCateParams.cat_pid = value[value.length - 1]
         // 父类层级
         this.addCateParams.cat_level = value.length
       }
+      // 如果没有选择data中的初始值就是0，不用处理
     },
 
     //添加按钮
@@ -127,10 +130,10 @@ export default {
 
     // 对话框关闭方法
     closeCategoryDialog() {
-      //清空表单
+      // 清空表单
       this.$refs.categoryFormRef.resetFields()
-      // checkedValue 保存的是默认选中的值（数组），清空只能赋值空数组
-      this.$refs.cascaderRef.checkedValue = []
+      // 清空级连选择器选择的 value
+      this.cascaderVal = []
       this.addCateParams.cat_level = 0
       this.addCateParams.cat_pid = 0
     },

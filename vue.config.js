@@ -8,7 +8,8 @@ module.exports = {
         assets: '@/assets',
         router: '@/router',
         plugin: '@/plugin',
-        http: '@/http'
+        http: '@/http',
+        eventBus: '@/eventBus'
       }
     }
   }

@@ -7,7 +7,7 @@
       <aside-menus></aside-menus>
       <!-- 右侧内容主体 -->
       <el-main>
-        <keep-alive>
+        <keep-alive exclude="Params">
           <router-view></router-view>
         </keep-alive>
       </el-main>
