@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import NavBar from 'components/navbar/NavBar.vue'
-import AsideMenus from 'components/asideMenus/AsideMenus.vue'
+import NavBar from './subComp/NavBar.vue'
+import AsideMenus from './subComp/AsideMenus.vue'
 
 export default {
   name: 'Home',

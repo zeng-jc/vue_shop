@@ -53,7 +53,6 @@
           </el-row>
         </template>
       </el-table-column>
-
       <!-- 索引列 -->
       <el-table-column type="index" width="50" label="#"> </el-table-column>
       <el-table-column prop="roleName" label="角色名称" width="180">

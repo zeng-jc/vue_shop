@@ -3,7 +3,7 @@ import API from './api.js'
 
 const instance = axios.create({
   baseURL: API.baseURL,
-  timeout: '6000',
+  timeout: '8000',
   method: 'GET'
 })
 

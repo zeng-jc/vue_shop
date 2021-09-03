@@ -1,5 +1,5 @@
 const API = {
-  baseURL: 'http://127.0.0.1:8888/api/private/v1/',
+  baseURL: 'http://1.117.1.94:8889/api/private/v1/',
   login: '/login',
   menus: '/menus',
 
@@ -37,7 +37,11 @@ const API = {
   // 分类数据列表，添加分类也是此接口（不同的是post请求）
   categories: 'categories',
   // 编辑删除操作
-  categoriesID: 'categories/:id'
+  categoriesID: 'categories/:id',
+  // 参数列表接口（添加参数也是此接口）
+  params: 'categories/:id/attributes',
+  // 编辑、删除参数，以及删除、添加参数的属性
+  editParams: 'categories/:id/attributes/:attrId'
 }
 
 export default API
