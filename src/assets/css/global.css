@@ -13,6 +13,10 @@ body,
   margin-bottom: 15px;
 }
 
+.el-table {
+  font-size: 13px !important;
+}
+
 /*
  * 只让main区域滚动
  */
@@ -28,4 +32,9 @@ body,
 /* 设置级联选择器的高度 */
 .el-cascader-menu {
   height: 300px;
+}
+
+/* 设置富文本编辑器的最小高度 */
+.ql-container {
+  min-height: 350px;
 }

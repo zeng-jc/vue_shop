@@ -143,12 +143,6 @@ export default {
         return []
       },
     },
-    roles: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
   },
   data() {
     return {
@@ -178,6 +172,8 @@ export default {
       /**
        * 分配角色
        */
+      //角色列表
+      roles: [],
       allotDialogVisible: false,
       userInfo: {
         username: '',
@@ -260,13 +256,8 @@ export default {
           type: 'warning',
         })
         .catch(err => err)
-      /**
-       * res 会返回两种结果
-       *  - 点击取消返回字符串：cancel
-       *  - 点击确定返回字符串：confirm
-       * 如果点击的是取消将不继续执行
-       */
-      if (res === 'cancel') {
+
+      if (res !== 'confirm') {
         return this.$message.info('删除以取消')
       }
 
@@ -286,8 +277,17 @@ export default {
       this.$message.success('删除成功!')
     },
 
-    // 显示分配对话框
-    showAllotDialog(info) {
+    // 显示分配角色对话框
+    async showAllotDialog(info) {
+      //获取角色列表
+      const { data: result } = await this.$http({
+        url: 'roles',
+      })
+      if (result.meta.status !== 200) {
+        return this.$message.error('用户列表数据获取失败')
+      }
+
+      this.roles = result.data
       this.userInfo.username = info.username
       this.userInfo.role_name = info.role_name
       this.curUserId = info.id

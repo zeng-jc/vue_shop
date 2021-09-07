@@ -1,4 +1,6 @@
 const API = {
+  // 本地接口
+  // baseURL: 'http://127.0.0.1:8888/api/private/v1/',
   baseURL: 'http://1.117.1.94:8889/api/private/v1/',
   login: '/login',
   menus: '/menus',
@@ -41,7 +43,11 @@ const API = {
   // 参数列表接口（添加参数也是此接口）
   params: 'categories/:id/attributes',
   // 编辑、删除参数，以及删除、添加参数的属性
-  editParams: 'categories/:id/attributes/:attrId'
+  editParams: 'categories/:id/attributes/:attrId',
+  // 商品列表，查询、添加商品也是此接口
+  goods: 'goods',
+  // 根据id对商品删改
+  goodsID: 'goods/:id'
 }
 
 export default API

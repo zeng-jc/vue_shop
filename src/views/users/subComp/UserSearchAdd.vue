@@ -1,6 +1,7 @@
 <template>
   <!-- 搜索、添加用户区域 -->
   <el-row :gutter="20" class="search_add">
+    <!-- 搜索用户 -->
     <el-col :span="8">
       <el-input
         placeholder="请输入用户名"
@@ -8,6 +9,7 @@
         @keyup.enter.native="getUsers"
         clearable
         @clear="getUsers"
+        @blur="getUsers"
       >
         <el-button
           slot="append"
@@ -16,10 +18,11 @@
         ></el-button>
       </el-input>
     </el-col>
+    <!-- 添加用户 -->
     <el-col :span="1">
-      <el-button type="primary" @click="dialogVisible = true"
-        >添加用户</el-button
-      >
+      <el-button type="primary" @click="dialogVisible = true">
+        添加用户
+      </el-button>
     </el-col>
     <!-- 添加用户框 -->
     <el-dialog

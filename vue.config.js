@@ -9,7 +9,8 @@ module.exports = {
         router: '@/router',
         plugin: '@/plugin',
         http: '@/http',
-        eventBus: '@/eventBus'
+        eventBus: '@/eventBus',
+        common: '@/common'
       }
     }
   }

@@ -89,18 +89,20 @@ export default {
         return this.$message.error('商品参数获取失败')
       }
 
-      let data = result.data
-      data.forEach(item => {
-        // 将参数的可选项拆分成一个数组
-        item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
+      // 将参数的可选项拆分成一个数组
+      result.data.forEach(item => {
+        // 如果字符串长度为0，直接返回空数组
+        item.attr_vals =
+          item.attr_vals.length === 0 ? [] : item.attr_vals.split(' ')
         //给 每一个参数的可选项绑定自己的 inputVisible 与 inputValue
         item.inputVisible = false
         item.inputValue = ''
       })
+
       if (this.curSel === 'many') {
-        this.manyTableData = data
+        this.manyTableData = result.data
       } else {
-        this.onlyTableData = data
+        this.onlyTableData = result.data
       }
     },
 

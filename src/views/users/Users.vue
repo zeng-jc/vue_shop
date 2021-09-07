@@ -12,7 +12,7 @@
       />
 
       <!-- 用户列表区域 -->
-      <user-list :users="users" :roles="roles" @getUsers="getUsers" />
+      <user-list :users="users" @getUsers="getUsers" />
 
       <!-- 分页 -->
       <pagination
@@ -55,10 +55,6 @@ export default {
       },
       //一共多少条数据
       total: 0,
-
-      //角色列表
-      roles: [],
-
       // 用户 pageSize
       UserPageSize: 'UserPageSize',
     }
@@ -66,7 +62,6 @@ export default {
   created() {
     this.userParams.pagesize = +sessionStorage.getItem(this.UserPageSize) || 4
     this.getUsers()
-    this.getRoles()
   },
   methods: {
     //获取用户
@@ -82,17 +77,6 @@ export default {
 
       this.users = result.data.users
       this.total = result.data.total
-    },
-    //获取角色列表
-    async getRoles() {
-      const { data: result } = await this.$http({
-        url: 'roles',
-      })
-
-      if (result.meta.status !== 200) {
-        return this.$message.error('用户列表数据获取失败')
-      }
-      this.roles = result.data
     },
   },
   components: {
