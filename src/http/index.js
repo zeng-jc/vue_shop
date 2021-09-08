@@ -45,10 +45,8 @@ export default function(options = {}) {
 
         //将 DynamicURL 中对应的 key 进行替换
         for (const key of Object.keys(URL.params)) {
-          DynamicURL = DynamicURL.replace(key, URL.params[key])
+          DynamicURL = DynamicURL.replace(':' + key, URL.params[key])
         }
-
-        DynamicURL = DynamicURL.replace(/:/g, '')
 
         return DynamicURL
       } else {

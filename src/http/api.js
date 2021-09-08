@@ -47,7 +47,15 @@ const API = {
   // 商品列表，查询、添加商品也是此接口
   goods: 'goods',
   // 根据id对商品删改
-  goodsID: 'goods/:id'
+  goodsID: 'goods/:id',
+
+  /**
+   * order
+   */
+  // 订单列表
+  orders: 'orders',
+  // 查看物流信息
+  kuaidi: '/kuaidi/:id'
 }
 
 export default API
