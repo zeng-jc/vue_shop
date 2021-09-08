@@ -97,7 +97,15 @@
       :visible.sync="logisticsDialogVisible"
       width="40%"
     >
-      <span>当前物流进度</span>
+      <el-timeline reverse>
+        <el-timeline-item
+          v-for="(item, index) in logisticsInfo"
+          :key="index"
+          :timestamp="item.ftime"
+        >
+          {{ item.context }}
+        </el-timeline-item>
+      </el-timeline>
     </el-dialog>
   </div>
 </template>
@@ -141,6 +149,8 @@ export default {
       citydata,
       // 物流进度对话框
       logisticsDialogVisible: false,
+      // 物流信息
+      logisticsInfo: '',
     }
   },
   methods: {
@@ -160,8 +170,8 @@ export default {
           },
         },
       })
-
       console.log(result.data)
+      this.logisticsInfo = result.data
     },
     // 更新地址
     updateAddress() {
@@ -180,5 +190,8 @@ export default {
 <style>
 .el-cascader {
   width: 100%;
+}
+.el-timeline {
+  font-size: 13px;
 }
 </style>
