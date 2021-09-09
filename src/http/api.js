@@ -55,7 +55,11 @@ const API = {
   // 订单列表
   orders: 'orders',
   // 查看物流信息
-  kuaidi: '/kuaidi/:id'
+  kuaidi: '/kuaidi/:id',
+  /**
+   * reports
+   */
+  reports: 'reports/type/1'
 }
 
 export default API
