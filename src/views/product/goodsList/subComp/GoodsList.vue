@@ -2,26 +2,14 @@
   <div>
     <el-table :data="goodsList" stripe border>
       <el-table-column type="index" width="50" label="#"> </el-table-column>
-      <el-table-column prop="goods_name" label="商品名称" width="550">
-      </el-table-column>
-      <el-table-column prop="goods_price" label="商品价格(元)">
-      </el-table-column>
+      <el-table-column prop="goods_name" label="商品名称" width="550"> </el-table-column>
+      <el-table-column prop="goods_price" label="商品价格(元)"> </el-table-column>
       <el-table-column prop="goods_weight" label="商品重量"> </el-table-column>
-      <el-table-column prop="upd_time" label="创建时间" width="160">
-      </el-table-column>
+      <el-table-column prop="upd_time" label="创建时间" width="160"> </el-table-column>
       <el-table-column prop="address" label="操作" width="120">
         <template v-slot:="rowProp">
-          <el-button
-            type="primary"
-            class="el-icon-edit"
-            size="small"
-          ></el-button>
-          <el-button
-            type="danger"
-            class="el-icon-delete"
-            size="small"
-            @click="deleteGoods(rowProp.row.goods_id)"
-          ></el-button>
+          <el-button type="primary" class="el-icon-edit" size="small"></el-button>
+          <el-button type="danger" class="el-icon-delete" size="small" @click="deleteGoods(rowProp.row.goods_id)"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -75,5 +63,5 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 </style>

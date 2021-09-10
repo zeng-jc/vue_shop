@@ -26,53 +26,25 @@
           >
           </el-input>
           <!-- 添加按钮 -->
-          <el-button v-else size="small" @click="showInput(propsVal.row)">
-            + New Tag
-          </el-button>
+          <el-button v-else size="small" @click="showInput(propsVal.row)"> + New Tag </el-button>
         </template>
       </el-table-column>
       <!-- 索引列 -->
       <el-table-column label="#" width="50" type="index"> </el-table-column>
       <!-- 参数名称列 -->
-      <el-table-column prop="attr_name" label="参数名称" width="180">
-      </el-table-column>
+      <el-table-column prop="attr_name" label="参数名称" width="180"> </el-table-column>
       <!-- 操作列 -->
       <el-table-column prop="a" label="操作">
         <template v-slot:="editProp">
-          <el-button
-            type="primary"
-            icon="el-icon-edit"
-            size="small"
-            @click="showDialog(editProp.row)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="small"
-            @click="deleteParams(editProp.row)"
-          >
-            删除
-          </el-button>
+          <el-button type="primary" icon="el-icon-edit" size="small" @click="showDialog(editProp.row)"> 编辑 </el-button>
+          <el-button type="danger" icon="el-icon-delete" size="small" @click="deleteParams(editProp.row)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 编辑参数的对话框 -->
-    <el-dialog
-      title="编辑参数"
-      :visible.sync="editDialogVisible"
-      width="40%"
-      @closed="$refs.ParamsForm.resetFields()"
-    >
-      <el-form
-        :model="editParamsForm"
-        :rules="editParamsRules"
-        label-width="80px"
-        ref="ParamsForm"
-        @submit.native.prevent
-      >
+    <el-dialog title="编辑参数" :visible.sync="editDialogVisible" width="40%" @closed="$refs.ParamsForm.resetFields()">
+      <el-form :model="editParamsForm" :rules="editParamsRules" label-width="80px" ref="ParamsForm" @submit.native.prevent>
         <el-form-item label="参数编辑" prop="attr_name">
           <el-input v-model="editParamsForm.attr_name"></el-input>
         </el-form-item>
@@ -247,7 +219,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 .el-tag {
   margin: 12px 12px 12px 0;
 }

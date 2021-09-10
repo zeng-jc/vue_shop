@@ -9,7 +9,8 @@ import 'assets/css/global.css'
 import 'plugin/element.js'
 // 导入字体图标
 import 'assets/fonts/iconfont.css'
-// 导入VueQuillEditor插件
+
+// 导入vue-quill-editor 富文本编辑器
 import 'plugin/vueQuillEditor.js'
 
 Vue.prototype.$http = http

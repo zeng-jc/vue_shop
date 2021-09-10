@@ -1,8 +1,9 @@
 import axios from 'axios'
 import API from './api.js'
 
-// 引入NProgress
+// 引入NProgress（不使用外部cdn）
 import NProgress from 'nprogress'
+// 样式表采用 CDN 引入
 import 'nprogress/nprogress.css'
 
 const instance = axios.create({
