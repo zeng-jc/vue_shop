@@ -175,6 +175,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.el-tabs {
+  margin-top: 15px;
+}
 .add-params-btn {
   margin-bottom: 15px;
 }
