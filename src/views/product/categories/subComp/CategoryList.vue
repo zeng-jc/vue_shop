@@ -11,59 +11,28 @@
       <el-table-column prop="cat_name" label="分类名称"> </el-table-column>
       <el-table-column prop="cat_deleted" label="是否有效">
         <template v-slot:="deleteProp">
-          <i
-            class="el-icon-success"
-            style="color: #67c23a"
-            v-if="deleteProp.row.cat_deleted === false"
-          ></i>
+          <i class="el-icon-success" style="color: #67c23a" v-if="deleteProp.row.cat_deleted === false"></i>
           <i class="el-icon-error" style="color: #f56c6c" v-else></i>
         </template>
       </el-table-column>
       <el-table-column label="排序">
         <template v-slot:="levelProp">
           <el-tag v-if="levelProp.row.cat_level === 0">一级</el-tag>
-          <el-tag v-else-if="levelProp.row.cat_level === 1" type="success">
-            二级
-          </el-tag>
+          <el-tag v-else-if="levelProp.row.cat_level === 1" type="success"> 二级 </el-tag>
           <el-tag v-else type="warning">三级</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作">
         <template v-slot:="propEdit">
-          <el-button
-            size="small"
-            type="primary"
-            icon="el-icon-edit"
-            @click="showCateEditDialog(propEdit.row)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            size="small"
-            type="danger"
-            icon="el-icon-delete"
-            @click="deleteCate(propEdit.row.cat_id)"
-          >
-            删除
-          </el-button>
+          <el-button size="small" type="primary" icon="el-icon-edit" @click="showCateEditDialog(propEdit.row)"> 编辑 </el-button>
+          <el-button size="small" type="danger" icon="el-icon-delete" @click="deleteCate(propEdit.row.cat_id)"> 删除 </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 编辑对话框 -->
-    <el-dialog
-      title="编辑分类名称"
-      :visible.sync="cateEditDialog"
-      width="40%"
-      @close="$refs.cateEditFormRef.resetFields()"
-    >
-      <el-form
-        :model="cateEditForm"
-        :rules="cateEditRules"
-        label-width="80px"
-        ref="cateEditFormRef"
-        @submit.native.prevent
-      >
+    <el-dialog title="编辑分类名称" :visible.sync="cateEditDialog" width="40%" @close="$refs.cateEditFormRef.resetFields()">
+      <el-form :model="cateEditForm" :rules="cateEditRules" label-width="80px" ref="cateEditFormRef" @submit.native.prevent>
         <el-form-item prop="cat_name" label="分类名">
           <el-input v-model="cateEditForm.cat_name"></el-input>
         </el-form-item>
@@ -97,9 +66,7 @@ export default {
       },
       // 表单规则
       cateEditRules: {
-        cat_name: [
-          { required: true, message: '请输入分类名称', trigger: 'blur' },
-        ],
+        cat_name: [{ required: true, message: '请输入分类名称', trigger: 'blur' }],
       },
       // 当前分类的id
       curId: '',
@@ -139,13 +106,11 @@ export default {
     //删除分类
     async deleteCate(id) {
       this.curId = id
-      const res = await this.$messageBox
-        .confirm('此操作将永久删除该分类, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        })
-        .catch(err => err)
+      const res = await this.$confirm('此操作将永久删除该分类, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).catch(err => err)
 
       if (res !== 'confirm') {
         return this.$message.info('操作已取消')

@@ -4,11 +4,7 @@
       <!-- 展开列 -->
       <el-table-column type="expand">
         <template v-slot:="propsChild">
-          <el-row
-            v-for="item in propsChild.row.children"
-            :key="item.id"
-            class="roles_border"
-          >
+          <el-row v-for="item in propsChild.row.children" :key="item.id" class="roles_border">
             <!-- 一级权限 -->
             <el-col :span="5">
               <el-tag closable @close="handleClose(propsChild.row, item.id)">
@@ -22,16 +18,10 @@
               <el-row
                 v-for="(itemTwo, indexTwo) in item.children"
                 :key="itemTwo.id"
-                :class="
-                  indexTwo === item.children.length - 1 ? '' : 'roles_border'
-                "
+                :class="indexTwo === item.children.length - 1 ? '' : 'roles_border'"
               >
                 <el-col :span="6">
-                  <el-tag
-                    type="success"
-                    closable
-                    @close="handleClose(propsChild.row, itemTwo.id)"
-                  >
+                  <el-tag type="success" closable @close="handleClose(propsChild.row, itemTwo.id)">
                     {{ itemTwo.authName }}
                   </el-tag>
                   <i class="el-icon-caret-right"></i>
@@ -55,8 +45,7 @@
       </el-table-column>
       <!-- 索引列 -->
       <el-table-column type="index" width="50" label="#"> </el-table-column>
-      <el-table-column prop="roleName" label="角色名称" width="180">
-      </el-table-column>
+      <el-table-column prop="roleName" label="角色名称" width="180"> </el-table-column>
       <el-table-column prop="roleDesc" label="角色描述"> </el-table-column>
       <el-table-column label="操作">
         <template v-slot:="roleProps">
@@ -70,22 +59,8 @@
             "
             >编辑
           </el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            icon="el-icon-delete"
-            @click="deleteRole(roleProps.row.id)"
-          >
-            删除
-          </el-button>
-          <el-button
-            size="mini"
-            type="warning"
-            icon="el-icon-setting"
-            @click="ShowAssignRightsDialog(roleProps.row)"
-          >
-            分配权限
-          </el-button>
+          <el-button size="mini" type="danger" icon="el-icon-delete" @click="deleteRole(roleProps.row.id)"> 删除 </el-button>
+          <el-button size="mini" type="warning" icon="el-icon-setting" @click="ShowAssignRightsDialog(roleProps.row)"> 分配权限 </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -122,18 +97,8 @@
     </el-dialog>
 
     <!-- 编辑角色对话框 -->
-    <el-dialog
-      title="编辑角色"
-      :visible.sync="editDialogVisible"
-      width="40%"
-      @closed="$refs.editRoleFormRef.resetFields()"
-    >
-      <el-form
-        label-width="80px"
-        :model="editRoleForm"
-        :rules="editRoleRules"
-        ref="editRoleFormRef"
-      >
+    <el-dialog title="编辑角色" :visible.sync="editDialogVisible" width="40%" @closed="$refs.editRoleFormRef.resetFields()">
+      <el-form label-width="80px" :model="editRoleForm" :rules="editRoleRules" ref="editRoleFormRef">
         <el-form-item label="角色名称" prop="roleName">
           <el-input v-model="editRoleForm.roleName"></el-input>
         </el-form-item>
@@ -204,13 +169,11 @@ export default {
   methods: {
     // 删除角色
     async deleteRole(id) {
-      const res = await this.$messageBox
-        .confirm('是否删除该权限', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        })
-        .catch(err => err)
+      const res = await this.$confirm('是否删除该角色', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).catch(err => err)
 
       if (res !== 'confirm') {
         return this.$message.info('操作已取消')
@@ -262,13 +225,11 @@ export default {
 
     // 删除权限
     async handleClose(role, rightId) {
-      const res = await this.$messageBox
-        .confirm('是否删除该权限', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        })
-        .catch(err => err)
+      const res = await this.$confirm('是否删除该权限', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).catch(err => err)
 
       if (res !== 'confirm') {
         return this.$message.info('操作已取消')
@@ -317,10 +278,7 @@ export default {
 
     // 确定分配权限的按钮
     async allotRightsBtn() {
-      const RightIds = [
-        ...this.$refs.tree.getCheckedKeys(),
-        ...this.$refs.tree.getHalfCheckedKeys(),
-      ]
+      const RightIds = [...this.$refs.tree.getCheckedKeys(), ...this.$refs.tree.getHalfCheckedKeys()]
       const strIds = RightIds.join(',')
       const { data: result } = await this.$http({
         method: 'post',

@@ -24,6 +24,7 @@ module.exports = {
 
       config.set('externals', {
         vue: 'Vue',
+        'element-ui': 'ELEMENT',
         'vue-router': 'VueRouter',
         axios: 'axios',
         lodash: '_',

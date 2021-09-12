@@ -9,6 +9,9 @@ import 'assets/css/global.css'
 // 导入字体图标
 import 'assets/fonts/iconfont.css'
 
+// 导入elementui
+// import 'plugin/element.js'
+
 Vue.prototype.$http = http
 
 Vue.config.productionTip = false

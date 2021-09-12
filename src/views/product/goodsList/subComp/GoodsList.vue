@@ -32,13 +32,11 @@ export default {
   },
   methods: {
     async deleteGoods(id) {
-      const res = await this.$messageBox
-        .confirm('此操作将永久删除该商品, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        })
-        .catch(err => err)
+      const res = await this.$confirm('此操作将永久删除该商品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).catch(err => err)
 
       if (res !== 'confirm') {
         return this.$message.info('操作已取消')

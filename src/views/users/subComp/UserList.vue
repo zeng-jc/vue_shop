@@ -20,43 +20,19 @@
               并且在插槽上绑定了一个 :row 属性(v-bind动态绑定),值为当前当前表格整行的数据(值存储在子组件中)
               在当前的父级作用域中我们可以通过"slotProps"(作用域插槽)接收拿到子组件的值,变量名可自定义
             -->
-          <el-switch
-            v-model="slotProps.row.mg_state"
-            @change="stateChange(slotProps.row)"
-          >
-          </el-switch>
+          <el-switch v-model="slotProps.row.mg_state" @change="stateChange(slotProps.row)"> </el-switch>
         </template>
       </el-table-column>
       <!-- 操作 -->
       <el-table-column label="操作">
         <template v-slot:="editSlot">
           <!-- 编辑用户 -->
-          <el-button
-            type="primary"
-            icon="el-icon-edit"
-            size="small "
-            @click="showDialog(editSlot.row)"
-          ></el-button>
+          <el-button type="primary" icon="el-icon-edit" size="small " @click="showDialog(editSlot.row)"></el-button>
           <!-- 删除用户 -->
-          <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="small "
-            @click="deleteUser(editSlot.row)"
-          ></el-button>
+          <el-button type="danger" icon="el-icon-delete" size="small " @click="deleteUser(editSlot.row)"></el-button>
           <!-- 分配角色 -->
-          <el-tooltip
-            effect="dark"
-            content="分配角色"
-            placement="top"
-            :enterable="false"
-          >
-            <el-button
-              type="warning"
-              icon="el-icon-setting"
-              size="small "
-              @click="showAllotDialog(editSlot.row)"
-            ></el-button>
+          <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
+            <el-button type="warning" icon="el-icon-setting" size="small " @click="showAllotDialog(editSlot.row)"></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -71,19 +47,9 @@
       :close-on-click-modal="false"
     >
       <!-- 表单区域 -->
-      <el-form
-        :model="editUserForm"
-        :rules="editUserRules"
-        label-width="70px"
-        status-icon
-        ref="userFormRef"
-      >
+      <el-form :model="editUserForm" :rules="editUserRules" label-width="70px" status-icon ref="userFormRef">
         <el-form-item label="用户名" prop="username">
-          <el-input
-            type="text"
-            v-model="editUserForm.username"
-            :disabled="true"
-          ></el-input>
+          <el-input type="text" v-model="editUserForm.username" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input type="text" v-model="editUserForm.email"></el-input>
@@ -101,25 +67,13 @@
     </el-dialog>
 
     <!-- 分配角色对话框 -->
-    <el-dialog
-      title="分配角色"
-      :visible.sync="allotDialogVisible"
-      width="40%"
-      :close-on-click-modal="false"
-      @close="selectRole = ''"
-    >
+    <el-dialog title="分配角色" :visible.sync="allotDialogVisible" width="40%" :close-on-click-modal="false" @close="selectRole = ''">
       <p class="userInfoP">当前用户：{{ userInfo.username }}</p>
       <p class="userInfoP">当前角色：{{ userInfo.role_name }}</p>
       <p class="userInfoP">
         分配角色：
         <el-select v-model="selectRole" placeholder="请选择">
-          <el-option
-            v-for="item in roles"
-            :key="item.id"
-            :label="item.roleName"
-            :value="item.id"
-          >
-          </el-option>
+          <el-option v-for="item in roles" :key="item.id" :label="item.roleName" :value="item.id"> </el-option>
         </el-select>
       </p>
 
@@ -249,13 +203,11 @@ export default {
 
     // 删除用户
     async deleteUser({ id }) {
-      const res = await this.$messageBox
-        .confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        })
-        .catch(err => err)
+      const res = await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).catch(err => err)
 
       if (res !== 'confirm') {
         return this.$message.info('删除以取消')
